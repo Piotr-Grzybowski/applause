@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
   let result = [];
   let errors = [];
 
-  csv.parseFile(path.resolve(__dirname, '..', '..', 'db', 'devices.csv'), { headers: true, ignoreEmpty: true })
+  csv.parseFile(path.resolve(__dirname, '..', 'db', 'devices.csv'), { headers: true, ignoreEmpty: true })
   .on('error', error => errors.push(error))
   .on('data', row => result.push(row))
   .on('end', () => {

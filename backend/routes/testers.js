@@ -6,7 +6,7 @@ const csv = require('fast-csv');
 
 router.get('/', (req, res) => {
   let result = [];
-  fs.createReadStream(path.resolve(__dirname, '..', '..', 'db', 'testers.csv'))
+  fs.createReadStream(path.resolve(__dirname, '..', 'db', 'testers.csv'))
   .pipe(csv.parse({ headers: true, ignoreEmpty: true }))
   .on('error', error => res.status(500).json(error))
   .on('data', row => result.push(row))

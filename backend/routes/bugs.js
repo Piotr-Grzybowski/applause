@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
   let result = [];
   let errors = [];
 
-  csv.parseFile(path.resolve(__dirname, '..', '..', 'db', 'bugs.csv'), { headers: true, ignoreEmpty: true })
+  csv.parseFile(path.resolve(__dirname, '..', 'db', 'bugs.csv'), { headers: true, ignoreEmpty: true })
   .transform(data => {
     if (device === 'all' && country === 'all') return data;
     if (device !== 'all' && country !== 'all') {

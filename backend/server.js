@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
-const devicesRouter = require('./backend/routes/devices');
-const testersRouter = require('./backend/routes/testers');
-const bugsRouter = require('./backend/routes/bugs');
+const devicesRouter = require('./routes/devices');
+const testersRouter = require('./routes/testers');
+const bugsRouter = require('./routes/bugs');
 const app = express();
 const path = require('path');
 
