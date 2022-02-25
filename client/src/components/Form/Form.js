@@ -33,6 +33,7 @@ function Form({ countries, devices, getBugs, setBugs }) {
           name="devices"
           className="basic-multi-select"
           classNamePrefix="select "
+          placeholder="All devices"
           options={optionsForDevices}
           selectValue={selectedDevices}
           onChange={(values) => {
@@ -46,6 +47,7 @@ function Form({ countries, devices, getBugs, setBugs }) {
           name="countries"
           className="basic-multi-select"
           classNamePrefix="select "
+          placeholder="All countries"
           options={optionsForCountries}
           selectValue={selectedCountries}
           onChange={(values) => {

@@ -1,0 +1,23 @@
+{
+  "name": "testers experience",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Piotr-Grzybowski/applause",
+  "author": "Piotr Grzybowski <pgrzybowski.dev@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "install:all": "npm install && npm run install:client && npm run install:server",
+    "install:client": "cd client && npm install",
+    "install:server": "cd backend && npm install",
+    "start": "concurrently --kill-others-on-fail \"npm run start:server\" \"npm run start:client\" ",
+    "start:server": "cd backend && npm start",
+    "start:client": "cd client && npm start",
+    "test": "npm run test:server && npm run test:client",
+    "test:server": "cd backend && npm test",
+    "test:client": "cd client && npm test"
+  },
+  "dependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.15"
+  }
+}
