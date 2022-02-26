@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const getDevicesAndTesters = (setTesters, setDevices) => {
+const getDevicesAndTesters = (setTesters, setDevices, setError) => {
 let endpoints = [
   'http://localhost:5000/api/testers/',
   'http://localhost:5000/api/devices/'
@@ -11,7 +11,7 @@ Promise.all(endpoints.map((endpoint) => axios.get(endpoint)))
     setDevices(devices);
   })
   .catch(error => {
-    if (error) console.log(error);
+    if (error) setError(`Couldn't get devices or countries information. Some unknown error occurred.`);
   });
 }
 

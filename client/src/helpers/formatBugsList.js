@@ -6,20 +6,20 @@ function formatBugsList(bugs, devicesForTester) {
       })
     ];
   }).map(listItem => {
-    return [{
+    return {
       testerId: listItem[0].testerId,
       devices: listItem[0].devices.reduce((total, element) => {
-        return [
-          ...total,
-          {
-            deviceId: element.deviceId,
-            count: listItem[1].filter(item => {
-              return item.deviceId === element.deviceId;
+        total.push({
+          deviceId: element.deviceId,
+          count: listItem[1].filter(item => {
+            return item.deviceId === element.deviceId;
             }).length
-          }
+        });
+        return [
+          ...total
         ]
       }, [])
-    }]
+    }
   })
 }
 

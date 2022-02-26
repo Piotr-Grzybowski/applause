@@ -3,7 +3,7 @@ const { query, validationResult } = require('express-validator');
 const fs = require('fs');
 const path = require('path');
 const csv = require('fast-csv');
-
+const { rejects } = require('assert');
 
 router.get('/', (req, res) => {
   const country = req.query.country ? req.query.country.split(',') : 'all';

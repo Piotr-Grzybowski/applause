@@ -6,6 +6,7 @@ const csv = require("fast-csv");
 
 router.get("/", (req, res) => {
   const testers = req.query.testers ? req.query.testers.split(",") : "all";
+  const devices = req.query.devices ? req.query.devices.split(",") : "all";
   let result = [];
   let errors = [];
 
@@ -34,18 +35,24 @@ router.get("/", (req, res) => {
             (item) => item.testerId === element.testerId
           );
           if (indexOfTester !== -1) {
-            accumulator[indexOfTester].devices.push({
-              deviceId: element.deviceId
-            });
+            if (devices.includes(element.deviceId) || devices === 'all') {
+              accumulator[indexOfTester].devices.push({
+                deviceId: element.deviceId
+              });
+              return [...accumulator];
+            }
             return [...accumulator];
           } else
-            return [
-              ...accumulator,
-              {
-                testerId: element.testerId,
-                devices: [{ deviceId: element.deviceId }],
-              },
-            ];
+            if (devices.includes(element.deviceId) || devices === 'all') {
+              return [
+                ...accumulator,
+                {
+                  testerId: element.testerId,
+                  devices: [{ deviceId: element.deviceId }],
+                },
+              ];
+            }
+            return [...accumulator];
         }, []);
         res.status(200).json(formattedResult);
       } else res.status(422).json(errors);

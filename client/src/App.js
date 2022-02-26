@@ -9,17 +9,26 @@ function App() {
   const [testers, setTesters] = useState([]);
   const [devices, setDevices] = useState([]);
   const [bugs, setBugs] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    getDevicesAndTesters(setTesters, setDevices);
+    getDevicesAndTesters(setTesters, setDevices, setError);
   }, []);
+  if (!error) {
+    return (
+      <div className="App">
+        <Form testers={testers} devices={devices} getBugs={getBugs} setBugs={setBugs}/>
+        <Result bugs={bugs} testers={testers} devices={devices} />
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <p className="error">{error}</p>
+      </div>
+    )
+  }
 
-  return (
-    <div className="App">
-      <Form testers={testers} devices={devices} getBugs={getBugs} setBugs={setBugs} />
-      <Result bugs={bugs} testers={testers} devices={devices} />
-    </div>
-  );
 }
 
 export default App;

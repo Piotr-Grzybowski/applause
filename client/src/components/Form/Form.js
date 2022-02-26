@@ -14,12 +14,6 @@ function Form({ testers, devices, getBugs, setBugs }) {
     };
   });
   const optionsForCountries = testersToCountries(testers).map((element) => {
-    console.log(testersToCountries(testers).map((element) => {
-      return {
-        value: element.value,
-        label: element.country,
-      };
-    }));
     return {
       value: element.value,
       label: element.country,
