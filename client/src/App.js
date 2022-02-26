@@ -3,21 +3,21 @@ import './App.css';
 import Form from './components/Form/Form.js';
 import Result from './components/Result/Result.js';
 import getBugs from './helpers/getBugs';
-import getDevicesAndCountries from './helpers/getDevicesAndTesters';
+import getDevicesAndTesters from './helpers/getDevicesAndTesters';
 
 function App() {
-  const [countries, setCountries] = useState([]);
+  const [testers, setTesters] = useState([]);
   const [devices, setDevices] = useState([]);
   const [bugs, setBugs] = useState([]);
 
   useEffect(() => {
-    getDevicesAndCountries(setCountries, setDevices);
+    getDevicesAndTesters(setTesters, setDevices);
   }, []);
 
   return (
     <div className="App">
-      <Form countries={countries} devices={devices} getBugs={getBugs} setBugs={setBugs} />
-      <Result bugs={bugs} countries={countries} devices={devices} />
+      <Form testers={testers} devices={devices} getBugs={getBugs} setBugs={setBugs} />
+      <Result bugs={bugs} testers={testers} devices={devices} />
     </div>
   );
 }

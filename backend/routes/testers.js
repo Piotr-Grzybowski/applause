@@ -6,31 +6,18 @@ const csv = require('fast-csv');
 
 router.get('/', (req, res) => {
   let result = [];
-  fs.createReadStream(path.resolve(__dirname, '..', 'db', 'testers.csv'))
-  .pipe(csv.parse({ headers: true, ignoreEmpty: true }))
-  .on('error', error => res.status(500).json(error))
+  let errors = [];
+
+  csv.parseFile(path.resolve(__dirname, '..', 'db', 'testers.csv'), { headers: true, ignoreEmpty: true })
+  .on('error', error => errors.push(error))
   .on('data', row => result.push(row))
   .on('end', () => {
-    const finalResult = formatResult(result);
-    res.status(200).json(finalResult);
+    if (!result.length) res.status(404).json(`Couldn't find any records that matches given criteria`)
+    else if (!errors.length) res.status(200).json(result);
+    else res.status(422).json(errors);
   });
 });
 
-function formatResult(result) {
-  return result.reduce((accumulator, element) => {
-    const found = accumulator.findIndex(item => item.country === element.country);
-    if (found > -1) {
-      accumulator[found].id += ',' + element.testerId;
-      return accumulator;
-    }
-    else return [
-      ...accumulator,
-      {
-        id: element.testerId,
-        country: element.country,
-      }
-    ]
-  }, []);
-}
+module.exports = router;
 
 module.exports = router;

@@ -3,6 +3,7 @@ const cors = require('cors');
 const devicesRouter = require('./routes/devices');
 const testersRouter = require('./routes/testers');
 const bugsRouter = require('./routes/bugs');
+const devicesForTester = require('./routes/devicesForTesters');
 const app = express();
 const path = require('path');
 
@@ -15,5 +16,6 @@ console.log(path.resolve(__dirname, 'db', 'testers.csv'));
 app.use('/api/devices/', devicesRouter);
 app.use('/api/testers/', testersRouter);
 app.use('/api/bugs/', bugsRouter);
+app.use('/api/devicesForTester/', devicesForTester);
 
 module.exports = app;
