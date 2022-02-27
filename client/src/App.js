@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import './App.css';
-import Form from './components/Form/Form.js';
-import Result from './components/Result/Result.js';
-import getBugs from './helpers/getBugs';
-import getDevicesAndTesters from './helpers/getDevicesAndTesters';
+import { useEffect, useState } from "react";
+import "./App.css";
+import Form from "./components/Form/Form.js";
+import Result from "./components/Result/Result.js";
+import getBugs from "./helpers/getBugs";
+import getDevicesAndTesters from "./helpers/getDevicesAndTesters";
 
 function App() {
   const [testers, setTesters] = useState([]);
@@ -14,10 +14,16 @@ function App() {
   useEffect(() => {
     getDevicesAndTesters(setTesters, setDevices, setError);
   }, []);
+
   if (!error) {
     return (
       <div className="App">
-        <Form testers={testers} devices={devices} getBugs={getBugs} setBugs={setBugs}/>
+        <Form
+          testers={testers}
+          devices={devices}
+          getBugs={getBugs}
+          setBugs={setBugs}
+        />
         <Result bugs={bugs} testers={testers} devices={devices} />
       </div>
     );
@@ -26,12 +32,8 @@ function App() {
       <div>
         <p className="error">{error}</p>
       </div>
-    )
+    );
   }
-
 }
 
 export default App;
-
-
-

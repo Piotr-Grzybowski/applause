@@ -1,39 +1,123 @@
-function Result({ bugs, testers, devices }) {
-  if (bugs.length > 0 && testers.length > 0 && typeof bugs !== 'string') {
+import * as React from "react";
+import PropTypes from "prop-types";
+import "./Result.css";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Collapse from "@mui/material/Collapse";
+import MobileScreenShareIcon from "@mui/icons-material/MobileScreenShare";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+
+export default function Result({ bugs, testers, devices }) {
+  const [open, setOpen] = React.useState(true);
+
+  const handleClick = (testerId) => {
+    open === testerId ? setOpen(0) : setOpen(testerId);
+  };
+  if (bugs.length > 0 && testers.length > 0 && typeof bugs !== "string") {
     return (
-      <div>
-        <ul>
+      <div id="list-main">
+        <List
+          className="list"
+          sx={{
+            backgroundColor: "rgba(72,72,72,0.4)",
+            width: "450px",
+            padding: "35px",
+          }}
+          component="nav"
+          aria-labelledby="nested-list-subheader"
+        >
           {bugs.map((element) => {
             return (
-              <li key={element.testerId}>
-                {getFullName(testers, element.testerId) + ' '} {element.devices.map(device => {
-                  return <p key={device.deviceId}>{`filed ${device.count} bugs for ${getDeviceName(devices, device.deviceId)}`}</p>
+              <div key={element.testerId} className="listItem">
+                <ListItemButton
+                  key={element.testerId}
+                  onClick={() => handleClick(element.testerId)}
+                  sx={{ backgroundColor: "rgba(72,72,72,0.5)" }}
+                >
+                  <ListItemIcon>
+                    <AccountCircleIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={`${getFullName(testers, element.testerId)} filed ${getTotalAmountOfBugs(element.devices)} bugs`}
+                  />
+                  {open === element.testerId ? <ExpandLess /> : <ExpandMore />}
+                </ListItemButton>
+                {element.devices.map((device) => {
+                  return (
+                    <Collapse
+                      key={device.deviceId}
+                      in={open === element.testerId}
+                      timeout="auto"
+                      unmountOnExit
+                    >
+                      <List component="div" disablePadding>
+                        <ListItemButton
+                          sx={{
+                            pl: 4,
+                            backgroundColor: "rgba(255, 255, 255,0.2)",
+                          }}
+                        >
+                          <ListItemIcon>
+                            <MobileScreenShareIcon />
+                          </ListItemIcon>
+                          <ListItemText
+                            key={device.deviceId}
+                            primary={`${
+                              device.count
+                            } bugs for ${getDeviceName(
+                              devices,
+                              device.deviceId
+                            )}`}
+                          />
+                        </ListItemButton>
+                      </List>
+                    </Collapse>
+                  );
                 })}
-              </li>
+              </div>
             );
           })}
-        </ul>
+        </List>
       </div>
     );
-  } else if (typeof bugs === 'string') return <p>{bugs}</p>
-
-  else return <div></div>;
+  } else if (typeof bugs === "string") return <p>{bugs}</p>;
+  else return <p></p>;
 }
 
 function getIndex(array, id, nameOfId) {
   return array.findIndex((item) => parseInt(item[nameOfId]) === parseInt(id));
 }
 function getFullName(array, id) {
-  if (getIndex(array, id, 'testerId') !== -1) {
-    return array[getIndex(array, id, 'testerId')].firstName + " " + array[getIndex(array, id, 'testerId')].lastName;
+  if (getIndex(array, id, "testerId") !== -1) {
+    return (
+      array[getIndex(array, id, "testerId")].firstName +
+      " " +
+      array[getIndex(array, id, "testerId")].lastName
+    );
   }
   return `Couldn't get proper name! Some error occurred!`;
 }
 function getDeviceName(array, id) {
-  if (getIndex(array, id, 'deviceId') !== -1) {
-    return array[getIndex(array, id, 'deviceId')].description;
+  if (getIndex(array, id, "deviceId") !== -1) {
+    return array[getIndex(array, id, "deviceId")].description;
   }
   return `Couldn't get proper device name! Some error occurred!`;
 }
 
-export default Result;
+function getTotalAmountOfBugs(bugsArray) {
+  let result = 0;
+  bugsArray.forEach(element => {
+    result += element.count;
+  });
+  return result;
+}
+
+Result.propTypes = {
+  bugs: PropTypes.array || PropTypes.string,
+  testers: PropTypes.array,
+  devices: PropTypes.array
+};

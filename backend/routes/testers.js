@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { body, validationResult } = require('express-validator');
 const fs = require('fs');
 const path = require('path');
 const csv = require('fast-csv');
@@ -17,7 +16,5 @@ router.get('/', (req, res) => {
     else res.status(422).json(errors);
   });
 });
-
-module.exports = router;
 
 module.exports = router;
