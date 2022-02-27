@@ -1,6 +1,8 @@
+import { getTotalAmountOfBugs } from './utilsForResult';
+
 function formatBugsList(bugs, devicesForTester) {
   if (typeof bugs === "string") return bugs;
-  return devicesForTester.map((device) => {
+  const formattedDevicesList = devicesForTester.map((device) => {
     return [device, bugs.filter((bug) => {
         return bug.testerId === device.testerId;
       })
@@ -20,7 +22,10 @@ function formatBugsList(bugs, devicesForTester) {
         ]
       }, [])
     }
-  })
+  });
+  return formattedDevicesList.sort((a, b) => {
+    return (getTotalAmountOfBugs(b.devices) - getTotalAmountOfBugs(a.devices));
+  });
 }
 
 export default formatBugsList;
