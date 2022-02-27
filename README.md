@@ -41,7 +41,7 @@ The result of your search is returned to you as a nested list. Next to the name 
 
 It may happen you won't find anything matching the given criteria. In that case, you should see an error like this one below.
 
-<img src="https://imgupload.pl/images/2022/02/27/error.png" ale="error, couldn't find any records that matches given criteria" width="1000" height="600">
+<img src="https://i.postimg.cc/T3cgPxrs/error.png" ale="error, couldn't find any records that matches given criteria" width="1000" height="600">
 
 
 An app needs to fetch information about testers and devices so it could fill in drop-down lists with proper values. If for some reason, for example, network issues, it won't succeed you should see an error message like the one below.
