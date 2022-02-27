@@ -9,6 +9,10 @@
 ```shell
 git clone https://github.com/Piotr-Grzybowski/applause.git
 ```
+- Get in the folder with the project
+```shell
+cd applause
+```
 - Install all dependencies with command npm run install:all
 ``` shell
 npm run install:all
