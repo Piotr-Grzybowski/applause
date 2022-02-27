@@ -30,7 +30,7 @@ function App() {
   } else {
     return (
       <div>
-        <p className="error">{error}</p>
+        <p className="error">{`Error: ${error}`}</p>
       </div>
     );
   }
