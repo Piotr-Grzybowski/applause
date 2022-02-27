@@ -85,7 +85,7 @@ export default function Result({ bugs, testers, devices }) {
         </List>
       </div>
     );
-  } else if (typeof bugs === "string") return <p>{bugs}</p>;
+  } else if (typeof bugs === "string") return <div id="list-main"><p>{bugs}</p></div>;
   else return <p></p>;
 }
 
